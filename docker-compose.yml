@@ -364,6 +364,8 @@ services:
   # PostgreSQL
   # ------------------------------------------------------------
   pgsql:
+    restart: always
+
     image: postgres:${PGSQL_SERVER:-9.6}
 
     environment:
@@ -389,8 +391,8 @@ services:
       - ${DEVILBOX_PATH}/log/pgsql-${PGSQL_SERVER}:/var/log/postgresql:rw${MOUNT_OPTIONS}
 
       # Mount PostgreSQL Data directory
-      - ${HOST_PATH_PGSQL_DATADIR}/${PGSQL_SERVER}:/var/lib/postgresql/data/pgdata:rw${MOUNT_OPTIONS}
-
+      - ${HOST_PATH_PGSQL_DATADIR}/${PGSQL_SERVER}:/var/lib/postgresql/data/pg
+      #- ${HOST_PATH_PGSQL_DATADIR}/${PGSQL_SERVER}:/var/lib/postgresql/data/pgdata:rw${MOUNT_OPTIONS}
     depends_on:
       - bind
       - php
@@ -478,8 +480,8 @@ services:
       # HOST-DIRECTORY : DOCKER-DIRECTORY
 
       # Mount MongoDB Data directory
-      - ${HOST_PATH_MONGO_DATADIR}/${MONGO_SERVER}:/data/db:rw${MOUNT_OPTIONS}
-
+      - ${HOST_PATH_MONGO_DATADIR}/${MONGO_SERVER}:/data/database
+      #- ${HOST_PATH_MONGO_DATADIR}/${MONGO_SERVER}:/data/db:rw${MOUNT_OPTIONS}
     depends_on:
       - bind
       - php
